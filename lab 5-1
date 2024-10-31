@@ -1,101 +1,107 @@
-function arraySum(x) {
+const bat = [1, 4, 5, 7, 9]
+// returns the sum of an array of numbers
+function arrAddition(numArr) {
     let sum = 0;
-    for (let i = 0; i < x.length; i++) {
+    for (let i = 0; i < numArr.length; i++) {
 
-        sum += Number(x[i]);
+        sum += numArr[i];
     }
-    return sum;
+    return sum
 }
-function arrayAverage(x) {
-    let sum = 0;
+
+console.log(arrAddition(bat));
+
+// returns the average of an array of a numbers
+function arrAverage(numArr) {
+    let avg = 0;
     let count = 0;
-    for (let i = 0; i < x.length; i++) {
+    for (let i = 0; i < numArr.length; i++) {
 
-        sum += (x[i]);
-        count++
+        avg += numArr[1];
     }
-    let average = sum / count;
-    return average
+    return avg / numArr.length
 }
-function arrayLongestString(x) {
-    let bigString = ``;
-    for (let i = 0; i < x.length; i++) {
 
-        if (bigString.length < x[i].length) {
-            bigString = x[i];
+console.log(arrAverage(bat));
+
+//return the longest string in array
+const arrStrings = ['Abdou', 'Mark', 'Wyatt', 'David'];
+function longestStr(str) {
+    let longestStr = "";
+    for (let name of str) {
+        if (longestStr.length < name.length) {
+            longestStr = name;
         }
     }
-    return bigString
+    return longestStr;
 }
-function arrayStringsLongerThan(x, y) {
-    let stringRuler = [];
-    for (let i = 0; i < x.length; i++) {
+//console.log(longestStr(arrStrings))
 
-        if (x[i].length > y) {
-            stringRuler.push(x[i])
+// return strings larger than given number
+const arrStrings1 = ['Abdou', 'Mark', 'Wyatt', 'David'];
+function arrStringsLong(yankees, number) {
+    let stringWorld = [];
+
+    for (let i = 0; i < yankees.length; i++) {
+
+
+        if (yankees[i].length > number) {
+            stringWorld.push(yankees[i])
         }
     }
-    return stringRuler
+    return stringWorld
 }
+//console.log(arrStringsLong(arrStrings1, 4));
 
-function countDownN(n) {
-    if (n <= 0) {
-        console.log(n);
-        return;
+// returns numbers btw 1-'j'
+function countDown(j) {
+    if (j > 0) {
+        console.log(j);
+        countDown(j - 1);
     }
-    console.log(n);
-    countDownN(n - 1);
+} //countDown(4);
+
+//     ************************ Part 2************************
+const data = [
+    { id: "42", name: "Bruce", occupation: "Knight", age: "41" },
+    { id: "48", name: "Barry", occupation: "Runner", age: "25" },
+    { id: "57", name: "Bob", occupation: "Fry Cook", age: "19" },
+    { id: "63", name: "Blaine", occupation: "Quiz Master", age: "58" },
+    { id: "7", name: "Bilbo", occupation: "None", age: "111" },
+];
+
+function sortAge(arr) {
+    return arr.sort((a, b) => Number(a.age) - Number(b.age));
 }
-const numberArray = [1, 2, 3, 4, 5];
-const stringArray = ["Earth", "Wind", "Water", "Air", "Gravity", "Time", "Space", "Void", "Shadow-Wizard-Money-Gang"];
 
-console.log("The sum of the number array is ", arraySum(numberArray));
-console.log("The average of the Array is ",arrayAverage(numberArray));
-console.log("The longest string in the array is ",arrayLongestString(stringArray));
-console.log(arrayStringsLongerThan(stringArray, 4));
-countDownN(5)
-data = [
-    { id: '42', name: 'Bruce', occupation: 'Knight', age: '41' },
-    { id: '48', name: 'Barry', occupation: 'Runner', age: '25' },
-    { id: '57', name: 'Bob', occupation: 'Fry Cook', age: '19' },
-    { id: '63', name: 'Blaine', occupation: 'Quiz Master', age: '58' },
-    { id: '7', name: 'Bilbo', occupation: 'None', age: '111' }
-]
-function arrayAdjustment(array, maxAge) {
+console.log(sortAge([...data]));
 
-    
-    let filteredArray = array.filter(function (person) {
-        return person.age <= maxAge;
-    });
-    filteredArray.sort(function (a, b) {
-        return a.age - b.age;
-    });
-    let updatedArray = filteredArray.map(function (person) {
+function under50(arr, maxAge) {
+    let filterArr = arr.filter(person => Number(person.age) <= maxAge);
+
+    let updatedArr = filterArr.map(person => {
         return {
-            id: person.id,
+            id: Number(person.id),
             name: person.name,
             job: person.occupation,
-            age: Number(person.age) + 1
+            age: Number(person.age) + 1,
         };
     });
-    return updatedArray;
+
+    return updatedArr;
 }
 
-
-/
-var dataSorted = arrayAdjustment(data, 50);
+const dataSorted = under50(data, 50);
 console.log(dataSorted);
 
+let ageArr = dataSorted.map(person => Number(person.age));
+console.log(ageArr);
 
+const sumOfAge = ageArr.reduce((sum, age) => {
+    return sum + age;
+}, 0);
 
-function sumAges (array) {
-    return array.reduce(function(accumulator, person){
-        return accumulator + Number(person.age);
-    }, 0); //Sets initial value to 0
-}
+console.log(sumOfAge);
 
-let totalAge = sumAges(dataSorted);
-console.log("The total age of this array is",totalAge);
-
-
-console.log("The average age is ", (totalAge/dataSorted.length));
+let avg = sumOfAge / ageArr.length;
+console.log(avg);
